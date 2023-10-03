@@ -20,44 +20,49 @@ function setTime() {
   }, 1000);
 }
 
-//Quiz (questions) - take quiz
-
+//Quiz (questions) - take quiz button
 var generateBtn = document.querySelector(".btn");
-
 //javascript looking for click of button to generate quiz/event
+generateBtn.addEventListener("click", runQuiz);
 
-generateBtn.addEventListener("click", runQuiz)
+var roseColor = ["Yellow", "White", "Red", "Pink", "Violet"]
 
+
+function generateQuiz() {
+  console.log(roseColor);
+
+  //Question 1(ask the user - no functionality)
+  //Answer 1(correct) - say correct
+  //Answer 2(false) - say incorrect
+  //Answer 3(false) - say incorrect
+  //Answer 4(false) - say incorrect
+}
+//quiz function for questions
+
+// function generateQuiz() {
+//   //Front Page - Coding Quiz Challenge - what do you need to do (welcome screen)
+//   var container = document.querySelector(".questions");
+
+//   container.addEventListener("click", function (event) {
+//     var element = event.target;
+
+//     if (element.matches(".ques")) {
+//       var state = element.getAttribute("data-state");
+
+//       // Use an if statement to conditionally render the number on the card
+//       if (state === "correct") {
+//         element.textContent = "Correct!";;
+//       } else {
+//         element.textContent = "";
+//         element.setAttribute("data-state", "Incorrect!")
+
+//       }
+//     }
+
+//   })
+// }
 
 function runQuiz() {
   var quiz = generateQuiz();
   var quizTime = setTime();
-
-  function generateQuiz() {
-    //Front Page - Coding Quiz Challenge - what do you need to do (welcome screen)
-    var container = document.querySelector(".questions");
-
-    container.addEventListener("click", function (event) {
-      var element = event.target;
-
-      if (element.matches(".ques")) {
-        var state = element.getAttribute("data-state");
-
-        // Use an if statement to conditionally render the number on the card
-        if (state === "correct") {
-          // If the card is clicked while the state is "hidden", we set .textContent to the number 
-          element.textContent = "Correct!";;
-          // Using the dataset property, we change the state to visible because the user can now see the numberß
-
-        } else {
-          // 'Hide' the number by setting .textContent to an empty string
-          element.textContent = "";
-          // Use .setAttribute() method
-          element.setAttribute("data-state", "Incorrect!")
-
-        }
-      }
-
-    })
-  }
 }
