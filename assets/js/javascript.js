@@ -1,7 +1,8 @@
-// Timer (right hand side corner) (code taken from lecture - Activity 04- Stu Traverse)
+// Timer (right hand side corner) (part of code taken from lecture - Activity 04- Stu Traverse)
 var timeEl = document.querySelector(".time");
 var mainEl = document.getElementById("main");
 var startButton = document.querySelector(".btn");
+var welcomeScreen = document.querySelector(".welcomeScreen");
 var questionCounter = 0;
 
 var winCounter = 0;
@@ -36,18 +37,28 @@ var answers = [
     question: "where do snow leopards live?",
     choices: ["turkey", "india", "china"],
     answer: "india"
+  },
+  {
+    question: "what do snow leopards eat?",
+    choices: ["grass", "peanut butter", "jelly"],
+    answer: "grass"
+  },
+  {
+    question: "what do snow leopards like to play?",
+    choices: ["guitar", "piano", "the keys"],
+    answer: "guitar"
   }
 ]
 
 var winCounts = "";
 var loseCounts = "";
-var questionCounter = "";
+var questionsCounter = "";
 
 
-function init() {
-  getWins();
-  getlosses();
-}
+// function init() {
+//   getWins();
+//   getlosses();
+// }
 
 //run quiz by generating quiz and starting timer
 function runQuiz() {
@@ -59,13 +70,15 @@ function runQuiz() {
 function generateQuiz() {
   isWin = false;
   secondsLeft = 90;
-  welcomescreen.style.display = "none";
-  console.log(display = "none");
+  //hides beginning screen when you click the button
+  welcomeScreen.style.display = "none";
+  console.log(welcomeScreen.style.display);
   renderQuestions();
 }
 
+//render questions using an index element
 function renderQuestions() {
-  var currQuestion = questions[questionCounter];
+  var currQuestion = questions[questionsCounter];
   var h1Tag = document.createElement("h1");
   h1Tag.textContent = currQuestion.question;
 
@@ -75,7 +88,7 @@ function renderQuestions() {
     var btn = document.createElement("button");
     btn.textContent = currChoice;
     //Gary - append button to div tag
-
+    divTag = document.append(h1Tag);
   }
 }
 
@@ -125,5 +138,5 @@ function getWins() {
 startButton.addEventListener("click", runQuiz);
 
 //fires init when page is loaded
-init();
+// init();
 
