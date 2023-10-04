@@ -17,19 +17,17 @@ function setTime() {
     secondsLeft--;
     timeEl.textContent = secondsLeft;
     if (secondsLeft >= 0) {
-      //if answer incorrect and timer count is abover zero
-      if (isIncorrect && timerCount > 0) {
-        secondsLeft--;
-      }
-    } else (secondsLeft === 0); {
-      // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      // Calls function to create and append image
-      loseGame();
+      secondsLeft--;
     }
-
-  }, 1000);
+  }(secondsLeft === 0)) {{
+    // Stops execution of action at set interval
+    clearInterval(timerInterval);
+  // Calls function to create and append image
+  loseGame();
 }
+
+}, 1000);
+})
 
 //global variables
 var questions = [
@@ -55,12 +53,12 @@ var loseCounts = "";
 var questionsCounter = "";
 
 
-// function init() {
-//   getWins();
-//   getlosses();
-// }
+function init() {
+  getWins();
+  getlosses();
+}
 
-//run quiz by generating quiz and starting timer
+//run quiz by generating quiz
 function runQuiz() {
   generateQuiz();
   setTime();
@@ -78,80 +76,88 @@ function generateQuiz() {
 
 //render questions using an index element
 function renderQuestions() {
-  var currQuestion = questions[questionsCounter];
-  // console.log(currQuestion);
-  var h1Tag = document.createElement("h1");
-  h1Tag.textContent = currQuestion[i].question;
+  {
+    var currQuestion = questions[questionsCounter];
+    // console.log(currQuestion);
+    var h1Tag = document.createElement("h1");
+    h1Tag.textContent = currQuestion[i].question;
 
-  var divTag = document.createElement("div");
-  for (var i = 0; i < currQuestion.choices; i++) {
-    var currChoice = currQuestion.choices[i]
-    var btn = document.createElement("button");
-    btn.textContent = currChoice;
-    //Gary - append button to div tag
-    divTag = document.append(h1Tag);
-    //Gary - append div and h1 tag to where needs to appear on the page
-    welcomeScreen = document.append(divTag);
+    var divTag = document.createElement("div");
+    for (var i = 0; i < currQuestion.choices; i++) {
+      var currChoice = currQuestion.choices[i]
+      var btn = document.createElement("button");
+      btn.textContent = currChoice;
+      //Gary - append button to div tag
+      divTag = document.append(h1Tag);
+      //Gary - append div and h1 tag to where needs to appear on the page
+      welcomeScreen = document.append(divTag);
+    }
+
+    //event listener to quiz element where target event matches answer button
+    welcomeScreen.addEventListener("click", function (event) {
+      var buttonAnswer = event.target
+      var div2Tag = document.createElement("div");
+      div2Tag.textContent = "";
+      if (buttonAnswer === questions.answer) {
+        div2Tag.textContent = "Correct!"
+        winCounter++;
+        winCounts();
+      } else (buttonAnswer !== questions.answer); {
+        div2Tag.textContent = "Incorrect!"
+        secondsLeft--;
+        loseCounter++;
+        loseCounts();
+        setTime();
+      }
+      questionCounter++;
+      renderQuestions();
+    })
   }
-}
 
-//event listener to quiz element where target event matches answer button
-welcomeScreen.addEventListener("click", function (event) {
-  var buttonAnswer = event.target
-  var div2Tag = document.createElement("div");
-  div2Tag.textContent = "";
-  if (buttonAnswer === "true") {
-    div2Tag.textContent = "Correct!"
-    winCounts();
-  } else (buttonAnswer === "false"); {
-    div2Tag.textContent = "Incorrect!"
-    loseCounts();
+
+  /*
+  when an answer button is clicked:
+  - tell if button is correct or incorrect
+  - if incorrect button is clicked - display message incorrect
+  - if incorrect button - decreases the timer
+  - if correct - display message and logs correct
+  
+  - Increment questionCounter by one
+  no matter what, the next question is shown (function renderQuestions)
+  
+  */
+
+  //win when condition is met
+  function winCounts() {
+    winCounter++;
+    startButton.disabled = false;
+    setWins()
   }
-})
 
-
-/*
-when an answer button is clicked:
-- tell if button is correct or incorrect
-- if incorrect button is clicked - display message incorrect
-- if incorrect button - decreases the timer
-- if correct - display message and logs correct
-
-- Increment questionCounter by one
-no matter what, the next question is shown (function renderQuestions)
-
-*/
-
-//win when condition is met
-function winCounts() {
-  winCounter++;
-  startButton.disabled = false;
-  setWins()
-}
-
-//loseGame counter
-function loseGame() {
-  loseCounter++;
-  startButton.disabled = false;
-  setLosses()
-}
-
-function getWins() {
-  var winsLocal = localStorage.getItem("winCount");
-  if (winsLocal === null) {
-    winCounter = 0;
-  } else {
-    winCounter = winsLocal;
+  //loseGame counter
+  function loseGame() {
+    loseCounter++;
+    startButton.disabled = false;
+    setLosses()
   }
-  winCounter.textContent = winCounter;
+
+  function getWins() {
+    var winsLocal = localStorage.getItem("winCount");
+    if (winsLocal === null) {
+      winCounter = 0;
+    } else {
+      winCounter = winsLocal;
+    }
+    winCounter.textContent = winCounter;
+  }
+
+  //event listener for quiz area - check to see if answer button was clicked (Gary)
+
+
+  //startButton will startQuiz when clicked 
+  startButton.addEventListener("click", runQuiz);
+
+
+  //fires init when page is loaded
+  init();
 }
-
-//event listener for quiz area - check to see if answer button was clicked (Gary)
-
-
-//startButton will startQuiz when clicked 
-startButton.addEventListener("click", runQuiz);
-
-//fires init when page is loaded
-// init();
-
