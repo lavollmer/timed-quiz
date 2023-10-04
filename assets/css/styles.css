@@ -1,23 +1,36 @@
-/* * {
-  background-color: white;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: medium;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-} */
-
 section.Welcomescreen {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: 10px;
+  padding: 10px;
 }
 
 h1 {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-size: 40px;
+  text-align: center;
+  margin: 20px;
 }
 
 h1.time {
   display: block;
+}
+
+p.text {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+button#generate.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
