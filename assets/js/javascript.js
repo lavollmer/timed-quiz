@@ -32,7 +32,7 @@ function setTime() {
 }
 
 //global variables
-var answers = [
+var questions = [
   {
     question: "where do snow leopards live?",
     choices: ["turkey", "india", "china"],
@@ -69,7 +69,7 @@ function runQuiz() {
 //run the quiz
 function generateQuiz() {
   isWin = false;
-  secondsLeft = 90;
+  // secondsLeft = 90;
   //hides beginning screen when you click the button
   welcomeScreen.style.display = "none";
   console.log(welcomeScreen.style.display);
@@ -79,8 +79,9 @@ function generateQuiz() {
 //render questions using an index element
 function renderQuestions() {
   var currQuestion = questions[questionsCounter];
+  // console.log(currQuestion);
   var h1Tag = document.createElement("h1");
-  h1Tag.textContent = currQuestion.question;
+  h1Tag.textContent = currQuestion[i].question;
 
   var divTag = document.createElement("div");
   for (var i = 0; i < currQuestion.choices; i++) {
@@ -89,11 +90,25 @@ function renderQuestions() {
     btn.textContent = currChoice;
     //Gary - append button to div tag
     divTag = document.append(h1Tag);
+    //Gary - append div and h1 tag to where needs to appear on the page
+    welcomeScreen = document.append(divTag);
   }
 }
 
-//Gary - append div and h1 tag to where needs to appear on the page
 //event listener to quiz element where target event matches answer button
+welcomeScreen.addEventListener("click", function (event) {
+  var buttonAnswer = event.target
+  var div2Tag = document.createElement("div");
+  div2Tag.textContent = "";
+  if (buttonAnswer === "true") {
+    div2Tag.textContent = "Correct!"
+    winCounts();
+  } else (buttonAnswer === "false"); {
+    div2Tag.textContent = "Incorrect!"
+    loseCounts();
+  }
+})
+
 
 /*
 when an answer button is clicked:
