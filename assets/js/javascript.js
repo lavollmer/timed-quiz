@@ -1,9 +1,8 @@
 // Timer (right hand side corner) (part of code taken from lecture - Activity 04- Stu Traverse)
 var timeEl = document.querySelector(".time");
-var mainEl = document.getElementById("main");
-var startButton = document.querySelector(".btn");
+var startButton = document.querySelector("#generate");
 var welcomeScreen = document.querySelector(".welcomeScreen");
-var questionCounter = 0;
+var questionsCounter = 0;
 
 var winCounter = 0;
 var loseCounter = 0;
@@ -16,18 +15,20 @@ function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft;
-    if (secondsLeft >= 0) {
-      secondsLeft--;
+
+    if (secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      sendMessage();
     }
-  }(secondsLeft === 0)) {{
-    // Stops execution of action at set interval
-    clearInterval(timerInterval);
-  // Calls function to create and append image
-  loseGame();
+
+  }, 1000);
 }
 
-}, 1000);
-})
+function sendMessage() {
+  timeEl.textContent = "";
+}
+
 
 //global variables
 var questions = [
@@ -52,7 +53,7 @@ var winCounts = "";
 var loseCounts = "";
 var questionsCounter = "";
 
-
+//initializing the wins and losses
 function init() {
   getWins();
   getlosses();
@@ -67,7 +68,7 @@ function runQuiz() {
 //run the quiz
 function generateQuiz() {
   isWin = false;
-  // secondsLeft = 90;
+  secondsLeft = 90;
   //hides beginning screen when you click the button
   welcomeScreen.style.display = "none";
   console.log(welcomeScreen.style.display);
@@ -78,11 +79,11 @@ function generateQuiz() {
 function renderQuestions() {
   {
     var currQuestion = questions[questionsCounter];
-    // console.log(currQuestion);
+    console.log(currQuestion);
     var h1Tag = document.createElement("h1");
     h1Tag.textContent = currQuestion[i].question;
-
     var divTag = document.createElement("div");
+
     for (var i = 0; i < currQuestion.choices; i++) {
       var currChoice = currQuestion.choices[i]
       var btn = document.createElement("button");
@@ -94,7 +95,7 @@ function renderQuestions() {
     }
 
     //event listener to quiz element where target event matches answer button
-    welcomeScreen.addEventListener("click", function (event) {
+    h1Tag.addEventListener("click", function (event) {
       var buttonAnswer = event.target
       var div2Tag = document.createElement("div");
       div2Tag.textContent = "";
@@ -142,22 +143,30 @@ function renderQuestions() {
   }
 
   function getWins() {
-    var winsLocal = localStorage.getItem("winCount");
+    var winsLocal = localStorage.getItem("winCounts");
     if (winsLocal === null) {
       winCounter = 0;
     } else {
       winCounter = winsLocal;
     }
-    winCounter.textContent = winCounter;
+    h1Tag.textContent = "All done!";
+    divTag.winCounter.textContent = "High Score:" + winCounter;
+    //highscores submission form
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('action' / 'submit');
+    var name = document.createElement('label');
+    name.textContent = 'Initials';
+    var input = document.createElement('input');
+    input.setAttribute('type', 'text');
   }
 
   //event listener for quiz area - check to see if answer button was clicked (Gary)
 
+  //fires init when page is loaded
+  init();
 
   //startButton will startQuiz when clicked 
   startButton.addEventListener("click", runQuiz);
 
-
-  //fires init when page is loaded
-  init();
 }
