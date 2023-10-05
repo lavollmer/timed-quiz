@@ -26,7 +26,8 @@ function setTime() {
 }
 
 function sendMessage() {
-  timeEl.textContent = "";
+  timeEl.textContent = "Game is over.";
+  getWins();
 }
 
 
@@ -94,26 +95,27 @@ function renderQuestions() {
       welcomeScreen = document.append(divTag);
     }
 
-    //event listener to quiz element where target event matches answer button
-    h1Tag.addEventListener("click", function (event) {
-      var buttonAnswer = event.target
-      var div2Tag = document.createElement("div");
-      div2Tag.textContent = "";
-      if (buttonAnswer === questions.answer) {
-        div2Tag.textContent = "Correct!"
-        winCounter++;
-        winCounts();
-      } else (buttonAnswer !== questions.answer); {
-        div2Tag.textContent = "Incorrect!"
-        secondsLeft--;
-        loseCounter++;
-        loseCounts();
-        setTime();
-      }
-      questionCounter++;
-      renderQuestions();
-    })
   }
+
+  //event listener to quiz element where target event matches answer button
+  welcomeScreen.addEventListener("click", function (event) {
+    var buttonAnswer = event.target
+    var div2Tag = document.createElement("div");
+    div2Tag.textContent = "";
+    if (buttonAnswer === questions.answer) {
+      div2Tag.textContent = "Correct!"
+      winCounter++;
+      winCounts();
+    } else (buttonAnswer !== questions.answer); {
+      div2Tag.textContent = "Incorrect!"
+      secondsLeft--;
+      loseCounter++;
+      loseCounts();
+      setTime();
+    }
+    questionCounter++;
+    renderQuestions();
+  })
 
 
   /*
@@ -131,18 +133,16 @@ function renderQuestions() {
   //win when condition is met
   function winCounts() {
     winCounter++;
-    startButton.disabled = false;
-    setWins()
+    setScore()
   }
 
   //loseGame counter
-  function loseGame() {
+  function loseCounts() {
     loseCounter++;
-    startButton.disabled = false;
-    setLosses()
+    setScore()
   }
 
-  function getWins() {
+  function setScore() {
     var winsLocal = localStorage.getItem("winCounts");
     if (winsLocal === null) {
       winCounter = 0;
@@ -159,9 +159,8 @@ function renderQuestions() {
     name.textContent = 'Initials';
     var input = document.createElement('input');
     input.setAttribute('type', 'text');
-  }
 
-  //event listener for quiz area - check to see if answer button was clicked (Gary)
+  }
 
   //fires init when page is loaded
   init();
