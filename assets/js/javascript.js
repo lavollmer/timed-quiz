@@ -6,12 +6,13 @@ var eventScreen = document.querySelector(".content")
 var divTag = document.createElement("div");
 var div2Tag = document.createElement("div");
 var h1Tag = document.createElement("h1");
+var scores = document.querySelector("#scores");
 var questionsCounter = 0;
 
 var winCounter = 0;
 var loseCounter = 0;
 var isWin = false;
-var secondsLeft = 90;
+var secondsLeft = 0;
 
 //sets timer on quiz
 function setTime() {
@@ -19,18 +20,16 @@ function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft;
-
     if (secondsLeft === 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
-      sendMessage();
+      timerInterval = sendMessage();
     }
-
-  }, 1000);
+  }, 1000)
 }
 
 function sendMessage() {
-  timeEl.textContent = "Game is over.";
+  timeEl.textContent = "Time is up!";
   getWins();
 }
 
@@ -43,7 +42,7 @@ var questions = [
     answer: "China"
   },
   {
-    question: "What sound can a snow leopard not make?",
+    question: "What sound can a snow leopard NOT make?",
     choices: ["mew", "growl", "puff", "roar"],
     answer: "roar"
   },
@@ -74,7 +73,8 @@ function runQuiz() {
 //run the quiz
 function generateQuiz() {
   isWin = false;
-  secondsLeft = 90;
+  //where the time is set for the timer
+  secondsLeft = 10;
   //hides beginning screen when you click the button
   welcomeScreen.style.display = "none";
   console.log(welcomeScreen.style.display);
@@ -160,14 +160,13 @@ function loseScore() {
 }
 
 function setScore() {
-  var winsLocal = localStorage.getItem("winCounts");
+  var winsLocal = localStorage.getItem("count");
   if (winsLocal === null) {
     winCounter = 0;
   } else {
     winCounter = winsLocal;
   }
-  h1Tag.textContent = "All done!";
-  divTag.textContent = "High Score:" + winCounter;
+  scores.textContent = "High Score:" + winCounter;
   //highscores submission form
   var form = document.createElement('form');
   form.setAttribute('method', 'POST');
