@@ -20,10 +20,12 @@ function setTime() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft;
-    if (secondsLeft === 0) {
+    //received <=0> from AskBCS
+    if (secondsLeft <= 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       timerInterval = sendMessage();
+      endQuiz();
     }
   }, 1000)
 }
@@ -67,19 +69,21 @@ function init() {
 //run quiz by generating quiz
 function runQuiz() {
   generateQuiz();
-  setTime();
+
 }
 
 //run the quiz
 function generateQuiz() {
   isWin = false;
   //where the time is set for the timer
-  secondsLeft = 10;
+  secondsLeft = 15;
   //hides beginning screen when you click the button
   welcomeScreen.style.display = "none";
   console.log(welcomeScreen.style.display);
   renderQuestions();
+  setTime();
 }
+
 
 //render questions using an index element
 function renderQuestions() {
@@ -126,13 +130,15 @@ function checkAnswer() {
     winScore();
   } else (buttonAnswer !== questions[questionsCounter].answer); {
     div2Tag.textContent = "Incorrect!"
-    secondsLeft--;
+    //received -=5 from AskBCS
+    secondsLeft -= 5;
     loseCounter++;
     loseScore();
-    setTime();
+    //AskBCS said to delete this
+    // setTime();
   }
   questionsCounter++;
-  if (questionsCounter === questions.length) {
+  if (questionsCounter === questions.length || secondsLeft === 0) {
     endQuiz();
   } else {
     renderQuestions();
