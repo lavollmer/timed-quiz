@@ -2,6 +2,10 @@
 var timeEl = document.querySelector(".time");
 var startButton = document.querySelector("#generate");
 var welcomeScreen = document.querySelector(".welcomeScreen");
+var eventScreen = document.querySelector(".content")
+var divTag = document.createElement("div");
+var div2Tag = document.createElement("div");
+var h1Tag = document.createElement("h1");
 var questionsCounter = 0;
 
 var winCounter = 0;
@@ -52,12 +56,13 @@ var questions = [
 
 var winCounts = "";
 var loseCounts = "";
-var questionsCounter = "";
+var questionsCounter = 0;
 
 //initializing the wins and losses
 function init() {
-  getWins();
-  getlosses();
+  winScore();
+  loseScore();
+  endScreen.style.display = "none";
 }
 
 //run quiz by generating quiz
@@ -81,91 +86,103 @@ function renderQuestions() {
   {
     var currQuestion = questions[questionsCounter];
     console.log(currQuestion);
-    var h1Tag = document.createElement("h1");
-    h1Tag.textContent = currQuestion[i].question;
-    var divTag = document.createElement("div");
-
-    for (var i = 0; i < currQuestion.choices; i++) {
+    var questionTitle = document.querySelector("#title");
+    questionTitle.textContent = currQuestion.question;
+    var optionChoices = document.querySelector("#answerChoices");
+    optionChoices.innerHTML = "";
+    for (var i = 0; i < currQuestion.choices.length; i++) {
       var currChoice = currQuestion.choices[i]
       var btn = document.createElement("button");
       btn.textContent = currChoice;
+      btn.setAttribute('value', currQuestion.choices[i])
+      btn.onclick = checkAnswer;
       //Gary - append button to div tag
-      divTag = document.append(h1Tag);
+      optionChoices.appendChild(btn);
       //Gary - append div and h1 tag to where needs to appear on the page
-      welcomeScreen = document.append(divTag);
+      // welcomeScreen = document.appendChild(divTag);
     }
 
   }
+};
+// //in class stuff - office hours
+// function addButton() {
+//   var button = create.createElement("button")
+//   button.setAttribute('class', 'clickable');
+//   button.textContent = "Click Me";
+//   content.appendChild(content);
+// }
 
-  //event listener to quiz element where target event matches answer button
-  welcomeScreen.addEventListener("click", function (event) {
-    var buttonAnswer = event.target
-    var div2Tag = document.createElement("div");
-    div2Tag.textContent = "";
-    if (buttonAnswer === questions.answer) {
-      div2Tag.textContent = "Correct!"
-      winCounter++;
-      winCounts();
-    } else (buttonAnswer !== questions.answer); {
-      div2Tag.textContent = "Incorrect!"
-      secondsLeft--;
-      loseCounter++;
-      loseCounts();
-      setTime();
-    }
-    questionCounter++;
-    renderQuestions();
-  })
+// // content.addEventListener("click", function (event) {
+// //   if (event.target.matches('button'));
+// // })
 
-
-  /*
-  when an answer button is clicked:
-  - tell if button is correct or incorrect
-  - if incorrect button is clicked - display message incorrect
-  - if incorrect button - decreases the timer
-  - if correct - display message and logs correct
-  
-  - Increment questionCounter by one
-  no matter what, the next question is shown (function renderQuestions)
-  
-  */
-
-  //win when condition is met
-  function winCounts() {
+//event listener to quiz element where target event matches answer button
+function checkAnswer() {
+  var buttonAnswer = this.value
+  div2Tag.textContent = "";
+  if (buttonAnswer === questions[questionsCounter].answer) {
+    div2Tag.textContent = "Correct!"
     winCounter++;
-    setScore()
-  }
-
-  //loseGame counter
-  function loseCounts() {
+    winScore();
+  } else (buttonAnswer !== questions[questionsCounter].answer); {
+    div2Tag.textContent = "Incorrect!"
+    secondsLeft--;
     loseCounter++;
-    setScore()
+    loseScore();
+    setTime();
   }
-
-  function setScore() {
-    var winsLocal = localStorage.getItem("winCounts");
-    if (winsLocal === null) {
-      winCounter = 0;
-    } else {
-      winCounter = winsLocal;
-    }
-    h1Tag.textContent = "All done!";
-    divTag.winCounter.textContent = "High Score:" + winCounter;
-    //highscores submission form
-    var form = document.createElement('form');
-    form.setAttribute('method', 'POST');
-    form.setAttribute('action' / 'submit');
-    var name = document.createElement('label');
-    name.textContent = 'Initials';
-    var input = document.createElement('input');
-    input.setAttribute('type', 'text');
-
+  questionsCounter++;
+  if (questionsCounter === questions.length) {
+    endQuiz();
+  } else {
+    renderQuestions();
   }
+}
 
-  //fires init when page is loaded
-  init();
+function endQuiz() {
+  console.log("quiz is over");
+  eventScreen.style.display = "none";
+  var endScreen = document.querySelector("#endScreen");
+  endScreen.style.display = "block";
+  setScore();
+}
 
-  //startButton will startQuiz when clicked 
-  startButton.addEventListener("click", runQuiz);
+//win when condition is met
+function winScore() {
+  winCounter++;
+  setScore()
+}
+
+//loseGame counter
+function loseScore() {
+  loseCounter++;
+  setScore()
+}
+
+function setScore() {
+  var winsLocal = localStorage.getItem("winCounts");
+  if (winsLocal === null) {
+    winCounter = 0;
+  } else {
+    winCounter = winsLocal;
+  }
+  h1Tag.textContent = "All done!";
+  divTag.textContent = "High Score:" + winCounter;
+  //highscores submission form
+  var form = document.createElement('form');
+  form.setAttribute('method', 'POST');
+  form.setAttribute('type', 'submit');
+  var name = document.createElement('label');
+  name.textContent = 'Initials';
+  var input = document.createElement('input');
+  input.setAttribute('type', 'text');
 
 }
+
+//fires init when page is loaded
+init();
+
+//startButton will startQuiz when clicked 
+startButton.addEventListener("click", runQuiz);
+
+
