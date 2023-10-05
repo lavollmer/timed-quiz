@@ -25,14 +25,14 @@ function setTime() {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       timerInterval = sendMessage();
-      endQuiz();
+      endQuiz()
     }
   }, 1000)
 }
 
 function sendMessage() {
   timeEl.textContent = "Time is up!";
-  getWins();
+  setScore();
 }
 
 
