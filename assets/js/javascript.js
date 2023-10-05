@@ -33,19 +33,19 @@ function sendMessage() {
 //global variables
 var questions = [
   {
-    question: "where do snow leopards live?",
-    choices: ["turkey", "india", "china"],
-    answer: "india"
+    question: "Snow leopards live in high alpine places. What country would you most likely find a snow leopard?",
+    choices: ["Greece", "Japan", "China", "Canada"],
+    answer: "China"
   },
   {
-    question: "what do snow leopards eat?",
-    choices: ["grass", "peanut butter", "jelly"],
-    answer: "grass"
+    question: "What sound can a snow leopard not make?",
+    choices: ["mew", "growl", "puff", "roar"],
+    answer: "roar"
   },
   {
-    question: "what do snow leopards like to play?",
-    choices: ["guitar", "piano", "the keys"],
-    answer: "guitar"
+    question: "Snow Leopards have powerful legs. How high can they jump?",
+    choices: ["30ft", "40ft", "50ft", "60ft"],
+    answer: "50ft"
   }
 ]
 
