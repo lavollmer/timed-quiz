@@ -11,6 +11,7 @@ var correct = document.querySelector("#correct");
 var endScreen = document.querySelector("#endScreen")
 var highScoresScreen = document.querySelector('#highScoresScreen')
 var scoreboard = document.querySelector('#scoreboard');
+var viewHighScoresButton = document.querySelector("#viewHighS")
 var questionsCounter = 0;
 
 var winCounter = 0;
@@ -233,5 +234,6 @@ init();
 
 //startButton will startQuiz when clicked 
 startButton.addEventListener("click", runQuiz);
+
 
 
