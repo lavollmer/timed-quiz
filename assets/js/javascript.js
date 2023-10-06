@@ -69,7 +69,6 @@ function init() {
 //run quiz by generating quiz
 function runQuiz() {
   generateQuiz();
-
 }
 
 //run the quiz
@@ -150,7 +149,10 @@ function endQuiz() {
   eventScreen.style.display = "none";
   var endScreen = document.querySelector("#endScreen");
   endScreen.style.display = "block";
+  //run to set the score
   setScore();
+  //run to input intials
+  intialsScores();
 }
 
 //win when condition is met
@@ -165,23 +167,30 @@ function loseScore() {
   setScore()
 }
 
+//set score
 function setScore() {
-  var winsLocal = localStorage.getItem("count");
-  if (winsLocal === null) {
-    winCounter = 0;
+  var finalScore = localStorage.getItem("1");
+  if (finalScore === null) {
+    finalScore = 0;
   } else {
-    winCounter = winsLocal;
+    finalScore = winsLocal;
   }
-  scores.textContent = "High Score:" + winCounter;
+  scores.textContent = "High Score:" + finalScore;
+}
+
+function intialsScores() {
   //highscores submission form
+  var name = document.createElement('label');
+  name.textContent = 'Initials';
   var form = document.createElement('form');
   form.setAttribute('method', 'POST');
   form.setAttribute('type', 'submit');
-  var name = document.createElement('label');
-  name.textContent = 'Initials';
   var input = document.createElement('input');
   input.setAttribute('type', 'text');
-
+  input.setAttribute('name', 'intials');
+  form.appendChild(name);
+  form.appendChild(input);
+  eventScreen.appendChild(form);
 }
 
 //fires init when page is loaded
@@ -189,5 +198,7 @@ init();
 
 //startButton will startQuiz when clicked 
 startButton.addEventListener("click", runQuiz);
+
+
 
 
