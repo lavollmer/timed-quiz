@@ -68,3 +68,12 @@ div#scores {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 30px;
 }
+
+div#correct {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 40px;
+  color: blue;
+}

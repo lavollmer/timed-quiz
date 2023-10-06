@@ -7,6 +7,7 @@ var divTag = document.createElement("div");
 var div2Tag = document.createElement("div");
 var h1Tag = document.createElement("h1");
 var scores = document.querySelector("#scores");
+var correct = document.querySelector("#correct");
 var questionsCounter = 0;
 
 var winCounter = 0;
@@ -122,13 +123,14 @@ function renderQuestions() {
 //event listener to quiz element where target event matches answer button
 function checkAnswer() {
   var buttonAnswer = this.value
-  div2Tag.textContent = "";
+  correct.textContent = "";
   if (buttonAnswer === questions[questionsCounter].answer) {
-    div2Tag.textContent = "Correct!"
+    correct.textContent = "Correct!";
+    console.log(questions[questionsCounter].answer);
     winCounter++;
     winScore();
   } else (buttonAnswer !== questions[questionsCounter].answer); {
-    div2Tag.textContent = "Incorrect!"
+    correct.textContent = "Incorrect!";
     //received -=5 from AskBCS
     secondsLeft -= 5;
     loseCounter++;
