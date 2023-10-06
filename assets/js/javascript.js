@@ -53,6 +53,26 @@ var questions = [
     question: "Snow Leopards have powerful legs. How high can they jump?",
     choices: ["30ft", "40ft", "50ft", "60ft"],
     answer: "50ft"
+  },
+  {
+    question: "How many snow leopards can be found in accredited zoos?",
+    choices: ["100", "900", "300", "600"],
+    answer: "900"
+  },
+  {
+    question: "What is the average lifespan (in years) of a snow leopard?",
+    choices: ["12", "16", "30", "21"],
+    answer: "21"
+  },
+  {
+    question: "How many known attacks on humans by snow leopards are there?",
+    choices: ["0", "10", "20", "30"],
+    answer: "0"
+  },
+  {
+    question: "Snow leopards are an endangered species. What is the best place to learn more?",
+    choices: ["Snow Leopard Trust", "Snow Leopard Conservancy", "Local Zoos", "All of the Above"],
+    answer: "All of the Above"
   }
 ]
 
