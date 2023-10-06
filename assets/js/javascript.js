@@ -9,6 +9,8 @@ var h1Tag = document.createElement("h1");
 var scores = document.querySelector("#scores");
 var correct = document.querySelector("#correct");
 var endScreen = document.querySelector("#endScreen")
+var highScoresScreen = document.querySelector('#highScoresScreen')
+var scoreboard = document.querySelector('#scoreboard');
 var questionsCounter = 0;
 
 var winCounter = 0;
@@ -81,6 +83,7 @@ function generateQuiz() {
   secondsLeft = 15;
   //hides beginning screen when you click the button
   welcomeScreen.style.display = "none";
+  highScoresScreen.style.display = "none";
   console.log(welcomeScreen.style.display);
   renderQuestions();
   setTime();
@@ -151,6 +154,7 @@ function checkAnswer() {
 function endQuiz() {
   console.log("quiz is over");
   eventScreen.style.display = "none";
+  highScoresScreen.style.display = "none";
   var endScreen = document.querySelector("#endScreen");
   endScreen.style.display = "block";
   //run to set the score
@@ -196,6 +200,19 @@ function intialsScores() {
   form.appendChild(input);
   endScreen.appendChild(form);
 }
+
+//highscore scoreboard
+function scoreBoard() {
+  console.log("scoreboard");
+  eventScreen.style.display = "none";
+  endScreen.style.display = "none";
+  highScoresScreen.style.display = "block";
+  var button = document.createElement('button');
+  button.textContent = " Go Back";
+  var buttonClear = document.createElement('button');
+  buttonClear.textContent = 'Clear high scores';
+}
+
 
 //fires init when page is loaded
 init();
