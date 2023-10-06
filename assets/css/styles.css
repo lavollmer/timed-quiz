@@ -83,3 +83,11 @@ div#endScreen {
   flex-direction: row;
   justify-content: center;
 }
+
+p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+}

@@ -17,5 +17,47 @@ Webpage:https://lavollmer.github.io/timed-quiz/
 
 Collaborators include the U of MN Bootcamp tutoring services. Additionally, information was learned from the U of MN bootcamp 2023 cohort.
 
+Received this logic from a tutor.
+  button.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.setItem(input.value, winCounter);
+    scoreBoard();
+  })
+
+Received this logic from tutor.
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    var displayScore = `${key}: ${localStorage.getItem(key)}`;
+    var pTag = document.createElement("p");
+    pTag.textContent = displayScore;
+    scoreboard.appendChild(pTag);
+  }
+
+AskBCS provided in checkAnswer function (see commented sections):
+  } else {
+    (buttonAnswer !== questions[questionsCounter].answer); {
+      correct.textContent = "Incorrect!"
+//received -=5 for timer from AskBCS
+      secondsLeft -= 5;
+//AskBCS said to delete this
+      // setTime();
+    }
+  }
+
+AskBCS provided in checkAnswer function (see commented sections):
+function setTime() {
+  timerInterval = setInterval(function () {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft;
+//received <=0> from AskBCS
+    if (secondsLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000)
+}
+
+Received scrollintoview method:
+https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
+
 ## License
 MIT License

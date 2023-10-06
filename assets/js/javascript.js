@@ -14,7 +14,6 @@ var scoreboard = document.querySelector('#scoreboard');
 var questionsCounter = 0;
 
 var winCounter = 0;
-// var loseCounter = 0;
 var isWin = false;
 var secondsLeft = 0;
 var timerInterval = "";
@@ -35,7 +34,6 @@ function setTime() {
 
 function sendMessage() {
   timeEl.textContent = "Time is up!";
-  // setScore();
 }
 
 
@@ -64,8 +62,6 @@ var questionsCounter = 0;
 
 //initializing the wins and losses
 function init() {
-  // winScore();
-  // loseScore();
   endScreen.style.display = "none";
   highScoresScreen.style.display = "none";
 }
@@ -74,13 +70,14 @@ function init() {
 function runQuiz() {
   generateQuiz();
   endScreen.style.display = "none";
+  highScoresScreen.style.display = "none";
 }
 
 //run the quiz
 function generateQuiz() {
   isWin = false;
   //where the time is set for the timer
-  secondsLeft = 15;
+  secondsLeft = 60;
   //hides beginning screen when you click the button
   welcomeScreen.style.display = "none";
   highScoresScreen.style.display = "none";
@@ -105,10 +102,7 @@ function renderQuestions() {
       btn.textContent = currChoice;
       btn.setAttribute('value', currQuestion.choices[i])
       btn.onclick = checkAnswer;
-      //Gary - append button to div tag
       optionChoices.appendChild(btn);
-      //Gary - append div and h1 tag to where needs to appear on the page
-      // welcomeScreen = document.appendChild(divTag);
     }
 
   }
@@ -126,10 +120,8 @@ function checkAnswer() {
   } else {
     (buttonAnswer !== questions[questionsCounter].answer); {
       correct.textContent = "Incorrect!"
-      //received -=5 from AskBCS
+      //received -=5 for timer from AskBCS
       secondsLeft -= 5;
-      // loseCounter++;
-      // loseScore();
       //AskBCS said to delete this
       // setTime();
     }
@@ -150,39 +142,14 @@ function endQuiz() {
   endScreen.style.display = "block";
   clearInterval(timerInterval);
   timerInterval = sendMessage();
-  //run to set the score
-  // setScore();
   //run to input intials
   intialsScores();
-  //run scoreboard
 }
 
-//win when condition is met
-// function winScore() {
-//   winCounter++;
-//   setScore()
-// }
-
-//loseGame counter
-// function loseScore() {
-//   loseCounter++;
-//   setScore()
-// }
-
-//set score
-// function setScore() {
-//   var finalScore = localStorage.getItem("count");
-//   if (finalScore === null) {
-//     absoluteFinalScore = 0;
-//   } else {
-//     absoluteFinalScore = finalScore;
-//   }
-//   scores.textContent = "High Score:" + absoluteFinalScore;
-// }
 
 function intialsScores() {
-  //highscores submission form
   scores.textContent = "High Score:" + winCounter;
+  //button creation
   var name = document.createElement('label');
   name.textContent = 'Initials';
   var form = document.createElement('form');
@@ -193,6 +160,8 @@ function intialsScores() {
   input.setAttribute('name', 'intials');
   var button = document.createElement('button');
   button.textContent = "Submit";
+  button.style.color = 'blue';
+  //button event listener for high scores screen
   button.addEventListener("click", function (event) {
     event.preventDefault();
     localStorage.setItem(input.value, winCounter);
@@ -202,10 +171,34 @@ function intialsScores() {
   form.appendChild(input);
   form.appendChild(button);
   endScreen.appendChild(form);
+  // form.display = "flex";
+  // form.style.flexDirection = "row";
+  // form.style.justifyContent = "center";
 }
 
 //highscore scoreboard
 function scoreBoard() {
+  var button = document.createElement('button');
+  button.textContent = "Go Back";
+  button.addEventListener("click", function (event) {
+    event.preventDefault();
+    welcomeScreen.scrollIntoView({ behavior: 'smooth' });
+    welcomeScreen.style.display = "block";
+    endScreen.style.display = "none";
+    highScoresScreen.style.display = "none";
+    timerInterval = 0;
+  })
+  var buttonClear = document.createElement('button');
+  buttonClear.textContent = "Clear High Scores";
+  buttonClear.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.clear();
+  })
+  button.style = "blue";
+  buttonClear.style = "blue";
+  highScoresScreen.appendChild(button);
+  highScoresScreen.appendChild(buttonClear);
+
   console.log("scoreboard");
   eventScreen.style.display = "none";
   endScreen.style.display = "none";
@@ -217,12 +210,7 @@ function scoreBoard() {
     pTag.textContent = displayScore;
     scoreboard.appendChild(pTag);
   }
-  var button = document.createElement('button');
-  button.textContent = " Go Back";
-  var buttonClear = document.createElement('button');
-  buttonClear.textContent = 'Clear high scores';
 }
-
 
 //fires init when page is loaded
 init();
