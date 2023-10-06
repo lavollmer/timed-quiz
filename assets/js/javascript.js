@@ -8,6 +8,7 @@ var div2Tag = document.createElement("div");
 var h1Tag = document.createElement("h1");
 var scores = document.querySelector("#scores");
 var correct = document.querySelector("#correct");
+var endScreen = document.querySelector("#endScreen")
 var questionsCounter = 0;
 
 var winCounter = 0;
@@ -70,6 +71,7 @@ function init() {
 //run quiz by generating quiz
 function runQuiz() {
   generateQuiz();
+  endScreen.style.display = "none";
 }
 
 //run the quiz
@@ -125,12 +127,12 @@ function checkAnswer() {
   var buttonAnswer = this.value
   correct.textContent = "";
   if (buttonAnswer === questions[questionsCounter].answer) {
-    correct.textContent = "Correct!";
-    console.log(questions[questionsCounter].answer);
+    correct.textContent = "Correct!"
+    console.log(questions[questionsCounter].answer)
     winCounter++;
     winScore();
   } else (buttonAnswer !== questions[questionsCounter].answer); {
-    correct.textContent = "Incorrect!";
+    correct.textContent = "Incorrect!"
     //received -=5 from AskBCS
     secondsLeft -= 5;
     loseCounter++;
@@ -171,13 +173,13 @@ function loseScore() {
 
 //set score
 function setScore() {
-  var finalScore = localStorage.getItem("1");
+  var finalScore = localStorage.getItem("count");
   if (finalScore === null) {
-    finalScore = 0;
+    absoluteFinalScore = 0;
   } else {
-    finalScore = winsLocal;
+    absoluteFinalScore = finalScore;
   }
-  scores.textContent = "High Score:" + finalScore;
+  scores.textContent = "High Score:" + absoluteFinalScore;
 }
 
 function intialsScores() {
@@ -192,7 +194,7 @@ function intialsScores() {
   input.setAttribute('name', 'intials');
   form.appendChild(name);
   form.appendChild(input);
-  eventScreen.appendChild(form);
+  endScreen.appendChild(form);
 }
 
 //fires init when page is loaded
