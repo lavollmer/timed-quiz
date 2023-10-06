@@ -4,7 +4,6 @@ section.Welcomescreen {
   justify-content: center;
   margin: 10px;
   padding: 10px;
-  background-color: black;
 }
 
 h1 {
@@ -49,10 +48,20 @@ div#answerChoices {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 50px;
+  margin: 30px;
   padding: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 50px;
+}
+
+button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(0, 0, 0);
+  color: rgb(36, 144, 144);
+  font-weight: bold;
+  font-size: 30px;
 }
 
 h1#timer {
@@ -75,7 +84,7 @@ div#correct {
   justify-content: center;
   font-family: 'Courier New', Courier, monospace;
   font-size: 40px;
-  color: blue;
+  color: rgb(36, 144, 144);
 }
 
 div#endScreen {
@@ -90,4 +99,45 @@ p {
   justify-content: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(0, 0, 0);
+  color: rgb(36, 144, 144);
+  font-weight: bold;
+  font-size: 30px;
+}
+
+section#highScoresScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+div#scores {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+button#buttonGoBack {
+  flex-direction: row;
+  justify-content: center;
+}
+
+body {
+  display: block;
 }

@@ -148,7 +148,7 @@ function endQuiz() {
 
 
 function intialsScores() {
-  scores.textContent = "High Score:" + winCounter;
+  scores.textContent = "Quiz Score:" + winCounter;
   //button creation
   var name = document.createElement('label');
   name.textContent = 'Initials';
@@ -160,7 +160,6 @@ function intialsScores() {
   input.setAttribute('name', 'intials');
   var button = document.createElement('button');
   button.textContent = "Submit";
-  button.style.color = 'blue';
   //button event listener for high scores screen
   button.addEventListener("click", function (event) {
     event.preventDefault();
@@ -180,6 +179,7 @@ function intialsScores() {
 function scoreBoard() {
   var button = document.createElement('button');
   button.textContent = "Go Back";
+  button.setAttribute("id", "buttonGoBack")
   button.addEventListener("click", function (event) {
     event.preventDefault();
     welcomeScreen.scrollIntoView({ behavior: 'smooth' });
@@ -190,19 +190,18 @@ function scoreBoard() {
   })
   var buttonClear = document.createElement('button');
   buttonClear.textContent = "Clear High Scores";
+  buttonClear.setAttribute("id", "buttonCl");
   buttonClear.addEventListener("click", function (event) {
     event.preventDefault();
     localStorage.clear();
   })
-  button.style = "blue";
-  buttonClear.style = "blue";
   highScoresScreen.appendChild(button);
   highScoresScreen.appendChild(buttonClear);
 
   console.log("scoreboard");
   eventScreen.style.display = "none";
   endScreen.style.display = "none";
-  highScoresScreen.style.display = "block";
+  highScoresScreen.style.display = "flex";
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     var displayScore = `${key}: ${localStorage.getItem(key)}`;
