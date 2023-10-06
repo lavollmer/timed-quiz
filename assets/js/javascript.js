@@ -1,4 +1,4 @@
-// Timer (right hand side corner) (part of code taken from lecture - Activity 04- Stu Traverse)
+// global variables
 var timeEl = document.querySelector(".time");
 var startButton = document.querySelector("#generate");
 var welcomeScreen = document.querySelector(".welcomeScreen");
@@ -190,9 +190,6 @@ function intialsScores() {
   form.appendChild(input);
   form.appendChild(button);
   endScreen.appendChild(form);
-  // form.display = "flex";
-  // form.style.flexDirection = "row";
-  // form.style.justifyContent = "center";
 }
 
 //highscore scoreboard
