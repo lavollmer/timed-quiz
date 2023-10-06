@@ -14,29 +14,28 @@ var scoreboard = document.querySelector('#scoreboard');
 var questionsCounter = 0;
 
 var winCounter = 0;
-var loseCounter = 0;
+// var loseCounter = 0;
 var isWin = false;
 var secondsLeft = 0;
+var timerInterval = "";
 
 //sets timer on quiz
 function setTime() {
   // Sets interval in variable
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = secondsLeft;
     //received <=0> from AskBCS
     if (secondsLeft <= 0) {
       // Stops execution of action at set interval
-      clearInterval(timerInterval);
-      timerInterval = sendMessage();
-      endQuiz()
+      endQuiz();
     }
   }, 1000)
 }
 
 function sendMessage() {
   timeEl.textContent = "Time is up!";
-  setScore();
+  // setScore();
 }
 
 
@@ -65,9 +64,10 @@ var questionsCounter = 0;
 
 //initializing the wins and losses
 function init() {
-  winScore();
-  loseScore();
+  // winScore();
+  // loseScore();
   endScreen.style.display = "none";
+  highScoresScreen.style.display = "none";
 }
 
 //run quiz by generating quiz
@@ -113,17 +113,6 @@ function renderQuestions() {
 
   }
 };
-// //in class stuff - office hours
-// function addButton() {
-//   var button = create.createElement("button")
-//   button.setAttribute('class', 'clickable');
-//   button.textContent = "Click Me";
-//   content.appendChild(content);
-// }
-
-// // content.addEventListener("click", function (event) {
-// //   if (event.target.matches('button'));
-// // })
 
 //event listener to quiz element where target event matches answer button
 function checkAnswer() {
@@ -133,15 +122,17 @@ function checkAnswer() {
     correct.textContent = "Correct!"
     console.log(questions[questionsCounter].answer)
     winCounter++;
-    winScore();
-  } else (buttonAnswer !== questions[questionsCounter].answer); {
-    correct.textContent = "Incorrect!"
-    //received -=5 from AskBCS
-    secondsLeft -= 5;
-    loseCounter++;
-    loseScore();
-    //AskBCS said to delete this
-    // setTime();
+    // winScore();
+  } else {
+    (buttonAnswer !== questions[questionsCounter].answer); {
+      correct.textContent = "Incorrect!"
+      //received -=5 from AskBCS
+      secondsLeft -= 5;
+      // loseCounter++;
+      // loseScore();
+      //AskBCS said to delete this
+      // setTime();
+    }
   }
   questionsCounter++;
   if (questionsCounter === questions.length || secondsLeft === 0) {
@@ -157,37 +148,41 @@ function endQuiz() {
   highScoresScreen.style.display = "none";
   var endScreen = document.querySelector("#endScreen");
   endScreen.style.display = "block";
+  clearInterval(timerInterval);
+  timerInterval = sendMessage();
   //run to set the score
-  setScore();
+  // setScore();
   //run to input intials
   intialsScores();
+  //run scoreboard
 }
 
 //win when condition is met
-function winScore() {
-  winCounter++;
-  setScore()
-}
+// function winScore() {
+//   winCounter++;
+//   setScore()
+// }
 
 //loseGame counter
-function loseScore() {
-  loseCounter++;
-  setScore()
-}
+// function loseScore() {
+//   loseCounter++;
+//   setScore()
+// }
 
 //set score
-function setScore() {
-  var finalScore = localStorage.getItem("count");
-  if (finalScore === null) {
-    absoluteFinalScore = 0;
-  } else {
-    absoluteFinalScore = finalScore;
-  }
-  scores.textContent = "High Score:" + absoluteFinalScore;
-}
+// function setScore() {
+//   var finalScore = localStorage.getItem("count");
+//   if (finalScore === null) {
+//     absoluteFinalScore = 0;
+//   } else {
+//     absoluteFinalScore = finalScore;
+//   }
+//   scores.textContent = "High Score:" + absoluteFinalScore;
+// }
 
 function intialsScores() {
   //highscores submission form
+  scores.textContent = "High Score:" + winCounter;
   var name = document.createElement('label');
   name.textContent = 'Initials';
   var form = document.createElement('form');
@@ -196,8 +191,16 @@ function intialsScores() {
   var input = document.createElement('input');
   input.setAttribute('type', 'text');
   input.setAttribute('name', 'intials');
+  var button = document.createElement('button');
+  button.textContent = "Submit";
+  button.addEventListener("click", function (event) {
+    event.preventDefault();
+    localStorage.setItem(input.value, winCounter);
+    scoreBoard();
+  })
   form.appendChild(name);
   form.appendChild(input);
+  form.appendChild(button);
   endScreen.appendChild(form);
 }
 
@@ -207,6 +210,13 @@ function scoreBoard() {
   eventScreen.style.display = "none";
   endScreen.style.display = "none";
   highScoresScreen.style.display = "block";
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    var displayScore = `${key}: ${localStorage.getItem(key)}`;
+    var pTag = document.createElement("p");
+    pTag.textContent = displayScore;
+    scoreboard.appendChild(pTag);
+  }
   var button = document.createElement('button');
   button.textContent = " Go Back";
   var buttonClear = document.createElement('button');
@@ -219,7 +229,5 @@ init();
 
 //startButton will startQuiz when clicked 
 startButton.addEventListener("click", runQuiz);
-
-
 
 
