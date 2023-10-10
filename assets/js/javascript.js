@@ -51,7 +51,7 @@ var questions = [
     answer: "roar"
   },
   {
-    question: "Snow Leopards have powerful legs. How high can they jump?",
+    question: "Snow Leopards have powerful legs. How far can they jump?",
     choices: ["30ft", "40ft", "50ft", "60ft"],
     answer: "50ft"
   },
